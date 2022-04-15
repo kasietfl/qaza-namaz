@@ -40,6 +40,7 @@ const Stack = createNativeStackNavigator();
 export default function Routes() {
     const input = useInput(new Date());
     const input2 = useInput(new Date());
+
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName='Intro'>
