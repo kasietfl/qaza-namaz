@@ -65,22 +65,27 @@ theme = {
         },
     },
 };
-const CalendarComponent = () => {
+const CalendarComponent = ({year, month, setDay, len}) => {
     const navigation = useNavigation();
-
+    let compDay = len && len[0].split('.');
+    console.log("a: ",compDay)
+ 
     return (
         <View style={{ padding: 20 }}>
             <Calendar
-                style={{
+                style={{ 
                     height: '100%',
                     backgroundColor: 'transparent',
                 }}
                 theme={theme}
+                current={`${year}-${month}-01`}
                 minDate={'2021-02-05'}
                 enableSwipeMonths
+                hideExtraDays
                 dayComponent={(e) => {
                     return (
                         <TouchableOpacity
+                            activeOpacity={0.9}
                             style={{
                                 padding: 20,
                                 width: 45,
@@ -92,10 +97,18 @@ const CalendarComponent = () => {
                                 justifyContent: 'center',
                                 borderWidth: 3,
                             }}
-                            onPress={() => navigation.navigate('NamazList')}
+                            onPress={() => {
+                                navigation.navigate('NamazList')
+                                setDay(e.date.day)
+                                console.log("b: ",compDay)
+
+                                
+
+                                
+                            }}
                         >
                             <ProgressCircle
-                                percent={60}
+                                percent={(compDay[0] == e.date.day && compDay[1] == month && compDay[2] == year) ? len[1]*100/6 : 100}
                                 radius={23}
                                 borderWidth={6}
                                 color='#97D2FB'
