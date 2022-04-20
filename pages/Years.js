@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import Title from '../components/Title';
 import Year from '../components/Year';
 
-export default function Years({ input, input2 }) {
+export default function Years({ input, input2, setYear }) {
     const dateFrom = input.date.getFullYear();
     const dateTo = input2.date.getFullYear();
     const dateArr = [];
@@ -12,11 +13,9 @@ export default function Years({ input, input2 }) {
     return (
         <ScrollView>
             <View style={styles.yearsWrapper}>
-                <Text style={styles.yearsTitle}>
-                    {dateFrom}-{dateTo}
-                </Text>
+                <Title title = {`${dateFrom} - ${dateTo}`}/>
                 {dateArr.map((i, index) => (
-                    <Year key={index} year={i} />
+                    <Year key={index} year={i} setYear={setYear} />
                 ))}
             </View>
         </ScrollView>
@@ -26,12 +25,5 @@ export default function Years({ input, input2 }) {
 const styles = StyleSheet.create({
     yearsWrapper: {
         margin: 20,
-        paddingTop: 15,
-    },
-    yearsTitle: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 15,
     },
 });

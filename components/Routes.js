@@ -35,9 +35,30 @@ function useInput() {
     };
 }
 
+
+
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
+    const [year, setYear] = React.useState();
+    const [month, setMonth] = React.useState();
+    const [day, setDay] = React.useState();
+    const [length, setLength] = React.useState();
+    const setDayFunc = (day1) => {
+        day1 <10 ? setDay(`0${day1}`) : setDay(day1)
+    };
+
+
+    const setYearFunc = (year) => {
+        setYear(year);
+    };
+    const setMonthFunc = (month) => {
+        setMonth(month);
+    }
+    const setCompletedNamaz = (len) => {
+        setLength(len)
+    }
+
     const input = useInput(new Date());
     const input2 = useInput(new Date());
 
@@ -51,14 +72,18 @@ export default function Routes() {
                 </Stack.Screen>
                 <Stack.Screen name='Years'>
                     {(props) => (
-                        <Years {...props} input={input} input2={input2} />
+                        <Years {...props} input={input} input2={input2} setYear = {setYearFunc} />
                     )}
                 </Stack.Screen>
                 <Stack.Screen name='Month'>
-                    {(props) => <Month {...props} year={'2010'} />}
+                    {(props) => <Month {...props} year={`${year}-год`} setMonth = {setMonthFunc}/>}
                 </Stack.Screen>
-                <Stack.Screen name='Calendar' component={Calendar} />
-                <Stack.Screen name='NamazList' component={NamazList} />
+                <Stack.Screen name='Calendar'>
+                    { (props) => <Calendar {...props} year={year} month={month} setDay = {setDayFunc} len = {length}/>}
+                </Stack.Screen>
+                <Stack.Screen name='NamazList'>
+                    {(props) => <NamazList {...props} date ={`${day}.${month}.${year}`} setCompletedNamaz = {setCompletedNamaz} />}
+                </Stack.Screen> 
             </Stack.Navigator>
         </NavigationContainer>
     );

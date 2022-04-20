@@ -2,12 +2,16 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Years({ year }) {
+export default function Years({ year,setYear }) {
     const navigation = useNavigation();
     return (
         <TouchableOpacity
+            activeOpacity={0.9}
             style={styles.year}
-            onPress={() => navigation.navigate('Month')}
+            onPress={() => {
+                navigation.navigate('Month')
+                setYear(year)
+            }}
         >
             <View style={styles.progressBar}></View>
             <Text style={styles.yearText}>{year}</Text>
@@ -27,7 +31,7 @@ const styles = StyleSheet.create({
     progressBar: {
         zIndex: 1000,
         backgroundColor: '#3359b4',
-        width: '30%',
+        width: '40%',
         height: '100%',
         borderRadius: 10,
     },

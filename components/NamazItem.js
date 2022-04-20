@@ -3,11 +3,12 @@ import CheckBox from 'expo-checkbox';
 
 import React, { useState } from 'react';
 
-const NamazItem = ({ title }) => {
-    const [isSelected, checkBoxChanged] = useState();
+const NamazItem = ({ item }) => {
+    const [isSelected, checkBoxChanged] = useState(false);
+    
     return (
         <View style={styles.item}>
-            <Text style={styles.text}>{title}</Text>
+            <Text style={styles.text}>{item.title}</Text>
             <CheckBox
                 style={styles.checkbox}
                 value={isSelected}
