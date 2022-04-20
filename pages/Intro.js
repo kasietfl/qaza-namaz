@@ -6,7 +6,7 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    Keyboard
+    Keyboard,
 } from 'react-native';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -23,98 +23,98 @@ export default function Intro({ navigation, input, input2 }) {
 
     useEffect(() => {
         const firstLoad = async () => {
-          try {
-            const savedNickname = await AsyncStorage.getItem("@nickname");
-            setNickname(savedNickname);
-          } catch (err) {
-            console.log(err);
-          }
+            try {
+                const savedNickname = await AsyncStorage.getItem('@nickname');
+                setNickname(savedNickname);
+            } catch (err) {
+                console.log(err);
+            }
         };
         firstLoad();
     }, []);
 
     const saveNickname = async () => {
         try {
-          await AsyncStorage.setItem("@nickname", nickname);
+            await AsyncStorage.setItem('@nickname', nickname);
         } catch (err) {
-          console.log(err);
+            console.log(err);
         }
         Keyboard.dismiss();
+    };
 
-    
-        
-      };
-      
     return (
         <View style={styles.introWrapper}>
-            <View style = {{alignItems: 'center', }}>
+            <View style={{ alignItems: 'center' }}>
                 <Image
                     style={styles.tinyLogo}
                     source={{
-                      uri: 'https://us.123rf.com/450wm/bsd555/bsd5551802/bsd555180200596/95339271-praying-muslim-man-glyph-icon-worship-islamic-culture-silhouette-symbol-negative-space-vector-isolat.jpg?ver=6',
+                        uri: 'https://us.123rf.com/450wm/bsd555/bsd5551802/bsd555180200596/95339271-praying-muslim-man-glyph-icon-worship-islamic-culture-silhouette-symbol-negative-space-vector-isolat.jpg?ver=6',
                     }}
                 />
             </View>
-           
+
             {/* <Text style={styles.title}>Qaza namaz</Text> */}
             {nickname ? (
-                <Text style={styles.title}>Assalamu Aleykum {nickname}!</Text>
-                ) : (
-                <Text style={styles.heading}>Create your nickname</Text>
-                )}
-           <View style={styles.nickname}> 
-           <View style={styles.inputs}>
-                <TextInput
-                    placeholder='Введите свое имя'
-                    style={styles.input}
-                    value={nickname}
-                    onChangeText={(value) => {
-                     setNickname(value);
-                    }}
-                />
+                <Text style={styles.title}>Assalamu Aleykum, {nickname}!</Text>
+            ) : (
+                <Text style={styles.title}></Text>
+            )}
+            <View>
+                <View style={styles.inputs}>
+                    <TextInput
+                        placeholder='Введите свое имя'
+                        style={styles.input}
+                        value={nickname}
+                        onChangeText={(value) => {
+                            setNickname(value);
+                        }}
+                    />
                 </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={saveNickname} style = {styles.buttonContainer} >
-                    <Text style = {{color: '#fff'}}>Save</Text>
+                {/* <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        onPress={saveNickname}
+                        style={styles.buttonContainer}
+                    >
+                        <Text style={{ color: '#fff' }}>Save</Text>
                     </TouchableOpacity>
-             </View>
-           </View>
+                </View> */}
+            </View>
 
-                <View style={styles.dateBtns}>
-                    <TouchableOpacity onPress={input.showDatepicker}>
-                        <View style={styles.date}>
-                            <Text style={styles.dateText}>
-                                {format(input.date, 'dd-MM-yyyy')}
-                            </Text>
-                            {input.show && (
-                                <DateTimePicker
-                                    testID='dateTimePicker1'
-                                    value={input.date}
-                                    mode={input.mode}
-                                    display='default'
-                                    maximumDate={input2.date}
-                                    onChange={input.onChange}
-                                />
-                            )}
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={input2.showDatepicker}>
-                        <View style={styles.date}>
-                            <Text style={styles.dateText}>
-                                {format(input2.date, 'dd-MM-yyyy')}
-                            </Text>
-                            {input2.show && (
-                                <DateTimePicker
-                                    testID='dateTimePicker2'
-                                    value={input2.date}
-                                    mode={input2.mode}
-                                    display='default'
-                                    minimumDate={input.date}
-                                    onChange={input2.onChange}
-                                />
-                            )}
-                        </View>
-                    </TouchableOpacity>
+            <View style={styles.dateBtns}>
+                <TouchableOpacity onPress={input.showDatepicker}>
+                    <View style={styles.date}>
+                        <Text style={styles.dateText}>
+                            {format(input.date, 'dd-MM-yyyy')}
+                        </Text>
+                        {input.show && (
+                            <DateTimePicker
+                                testID='dateTimePicker1'
+                                value={input.date}
+                                mode={input.mode}
+                                display='default'
+                                maximumDate={input2.date}
+                                onChange={input.onChange}
+                            />
+                        )}
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={input2.showDatepicker}>
+                    <View style={styles.date}>
+                        <Text style={styles.dateText}>
+                            {format(input2.date, 'dd-MM-yyyy')}
+                        </Text>
+                        {input2.show && (
+                            <DateTimePicker
+                                testID='dateTimePicker2'
+                                value={input2.date}
+                                mode={input2.mode}
+                                display='default'
+                                minimumDate={input.date}
+                                onChange={input2.onChange}
+                            />
+                        )}
+                    </View>
+                </TouchableOpacity>
             </View>
             <Btn text='Вперёд' onPress={nextPage} />
         </View>
@@ -129,11 +129,10 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 22,
-        fontWeight: 'bold',
         textAlign: 'center',
     },
     inputs: {
-        width: '60%',
+        marginTop: 50,
     },
     input: {
         padding: 15,
@@ -162,18 +161,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#83bcff',
         borderRadius: 10,
         justifyContent: 'center',
-        alignItems: 'center'
-      },
-      nickname: {
-          marginTop: 100,
-          flexDirection: 'row',
-          justifyContent: 'space-between'
-      },
-      tinyLogo: {
-          width: 90,
-          height: 90,
-         
-         
-      }
+        alignItems: 'center',
+    },
 
+    tinyLogo: {
+        width: 90,
+        height: 90,
+    },
 });

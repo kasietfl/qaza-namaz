@@ -65,15 +65,15 @@ theme = {
         },
     },
 };
-const CalendarComponent = ({year, month, setDay, len}) => {
+const CalendarComponent = ({ year, month, setDay, len }) => {
     const navigation = useNavigation();
-    let compDay = len && len[0].split('.');
-    console.log("a: ",compDay)
- 
+    let compDay = len ? len[0].split('.') : [];
+    console.log('a: ', compDay);
+
     return (
         <View style={{ padding: 20 }}>
             <Calendar
-                style={{ 
+                style={{
                     height: '100%',
                     backgroundColor: 'transparent',
                 }}
@@ -98,17 +98,19 @@ const CalendarComponent = ({year, month, setDay, len}) => {
                                 borderWidth: 3,
                             }}
                             onPress={() => {
-                                navigation.navigate('NamazList')
-                                setDay(e.date.day)
-                                console.log("b: ",compDay)
-
-                                
-
-                                
+                                navigation.navigate('NamazList');
+                                setDay(e.date.day);
+                                console.log('b: ', compDay);
                             }}
                         >
                             <ProgressCircle
-                                percent={(compDay[0] == e.date.day && compDay[1] == month && compDay[2] == year) ? len[1]*100/6 : 100}
+                                percent={
+                                    compDay[0] == e.date.day &&
+                                    compDay[1] == month &&
+                                    compDay[2] == year
+                                        ? (len[1] * 100) / 6
+                                        : 0
+                                }
                                 radius={23}
                                 borderWidth={6}
                                 color='#97D2FB'

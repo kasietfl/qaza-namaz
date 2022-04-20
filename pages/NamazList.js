@@ -1,7 +1,12 @@
-import { View, FlatList, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import {
+    View,
+    FlatList,
+    StyleSheet,
+    TouchableOpacity,
+    Text,
+} from 'react-native';
 import React from 'react';
-import NamazItem from '../components/NamazItem';
-import SelectMultiple from 'react-native-select-multiple'
+import SelectMultiple from 'react-native-select-multiple';
 import { useNavigation } from '@react-navigation/native';
 import Title from '../components/Title';
 
@@ -12,7 +17,8 @@ const DATA = [
     },
     {
         value: '2',
-        label: 'Зухр'   },
+        label: 'Зухр',
+    },
     {
         value: '3',
         label: 'Аср',
@@ -31,30 +37,41 @@ const DATA = [
     },
 ];
 
-const NamazList = ({date, setCompletedNamaz}) => {
-   const [completedNamazes, setCompletedNamazes] = React.useState([]);
+const NamazList = ({ date, setCompletedNamaz }) => {
+    const [completedNamazes, setCompletedNamazes] = React.useState([]);
 
-   const onCompletedChange = (selected) => {
-    setCompletedNamazes(selected)
-
-   }
-   const navigation = useNavigation();
+    const onCompletedChange = (selected) => {
+        setCompletedNamazes(selected);
+    };
+    const navigation = useNavigation();
 
     return (
         <View style={styles.main}>
             <Title title={date} />
             <SelectMultiple
-          items={DATA}
-          selectedItems={completedNamazes}
-          onSelectionsChange={onCompletedChange} />
-          <TouchableOpacity style  ={{marginBottom: 20, backgroundColor: '#3359b4', padding: 20, borderRadius: 10}} activeOpacity={0.9} onPress = {() => {
-               setCompletedNamaz([date, completedNamazes.length]);
-               navigation.navigate('Calendar')
-          }    
-            }>
-              <Text style = {{color: '#fff', fontSize: 18, textAlign: 'center'}}>Сохранить</Text>
-          </TouchableOpacity>
-
+                items={DATA}
+                selectedItems={completedNamazes}
+                onSelectionsChange={onCompletedChange}
+            />
+            <TouchableOpacity
+                style={{
+                    marginBottom: 20,
+                    backgroundColor: '#3359b4',
+                    padding: 20,
+                    borderRadius: 10,
+                }}
+                activeOpacity={0.9}
+                onPress={() => {
+                    setCompletedNamaz([date, completedNamazes.length]);
+                    navigation.navigate('Calendar');
+                }}
+            >
+                <Text
+                    style={{ color: '#fff', fontSize: 18, textAlign: 'center' }}
+                >
+                    Сохранить
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 };
