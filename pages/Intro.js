@@ -92,6 +92,7 @@ export default function Intro({ navigation, input, input2 }) {
                                     value={input.date}
                                     mode={input.mode}
                                     display='default'
+                                    maximumDate={input2.date}
                                     onChange={input.onChange}
                                 />
                             )}
@@ -108,7 +109,7 @@ export default function Intro({ navigation, input, input2 }) {
                                     value={input2.date}
                                     mode={input2.mode}
                                     display='default'
-                                    locale='ru'
+                                    minimumDate={input.date}
                                     onChange={input2.onChange}
                                 />
                             )}
